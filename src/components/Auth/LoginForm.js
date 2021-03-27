@@ -24,9 +24,8 @@ export default function LoginForm(props) {
         Toast.show(error, {
           position: Toast.positions.CENTER,
         });
-        // setLoading(false);
+        setLoading(false);
       }
-      setLoading(false);
     },
   });
 
