@@ -3,6 +3,7 @@ import { Text, ScrollView } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import StatusBar from "../../components/StatusBar";
 import Search from "../../components/Search/Search";
+import ScreenLoading from "../../components/ScreenLoading";
 import { getMeApi } from "../../api/user";
 import useAuth from "../../hooks/useAuth";
 import colors from "../../styles/colors";
@@ -25,10 +26,16 @@ export default function Account() {
   return (
     <>
       <StatusBar backgroundColor={colors.bgDark} barStyle="light-content" />
-      <Search />
-      <ScrollView>
-        <Text>ACCOUNT</Text>
-      </ScrollView>
+      {!user ? (
+        <ScreenLoading size="large" />
+      ) : (
+        <>
+          <Search />
+          <ScrollView>
+            <Text>ACCOUNT</Text>
+          </ScrollView>
+        </>
+      )}
     </>
   );
 }
