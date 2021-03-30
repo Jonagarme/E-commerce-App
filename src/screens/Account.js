@@ -1,18 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, ScrollView } from "react-native";
+import StatusBar from "../components/StatusBar";
+import Search from "../components/Search/Search";
+import colors from "../styles/colors";
 
 export default function Account() {
   return (
-    <View style={styles.container}>
-      <Text>ACCOUNT</Text>
-    </View>
+    <>
+      <StatusBar backgroundColor={colors.bgDark} barStyle="light-content" />
+      <Search />
+      <ScrollView>
+        <Text>ACCOUNT</Text>
+      </ScrollView>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
