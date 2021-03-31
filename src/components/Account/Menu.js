@@ -1,10 +1,30 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Alert } from "react-native";
 import { List } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import useAuth from "../../hooks/useAuth";
 
 export default function Menu() {
   const navigation = useNavigation();
+  const { logout } = useAuth();
+
+  const logoutAccount = () => {
+    Alert.alert(
+      "Cerrar Sesión",
+      "¿Estas seguro de que queires salir de tu cuenta?",
+      [
+        {
+          text: "NO",
+        },
+        {
+          text: "SI",
+          onPress: logout,
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <>
       <List.Section>
@@ -58,11 +78,9 @@ export default function Menu() {
           title="Cerrar sesion"
           description="Cierra esta sesion y inicia con otra"
           left={(props) => <List.Icon {...props} icon="logout" />}
-          onPress={() => console.log("Cerrar sesion")}
+          onPress={logoutAccount}
         />
       </List.Section>
     </>
   );
 }
-
-const styles = StyleSheet.create({});
