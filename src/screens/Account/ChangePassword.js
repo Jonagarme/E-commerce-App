@@ -5,19 +5,31 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Toast from "react-native-root-toast";
+import useAuth from "../../hooks/useAuth";
+import { updateUserApi } from "../../api/user";
 import { formStyle } from "../../styles";
 
 export default function ChangePassword() {
-  //const { auth } = useAuth();
+  const { auth, logout } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
-    onSubmit: (formData) => {
-      console.log("Formulario enviado...");
-      console.log(formData);
+    onSubmit: async (formData) => {
+      setLoading(true);
+      try {
+        const response = await updateUserApi(auth, formData);
+        if (response.statusCode) throw "Error al cambiar la contraseña";
+        navigation.goBack();
+        //logout();
+      } catch (error) {
+        Toast.show(error, {
+          position: Toast.positions.CENTER,
+        });
+        setLoading(false);
+      }
     },
   });
 

@@ -35,7 +35,7 @@ export default function ChangeName() {
         await updateUserApi(auth, formData);
         navigation.goBack();
       } catch (error) {
-        Toast.show("Error al actualizar los daots", {
+        Toast.show("Error al actualizar los datos", {
           position: Toast.positions.CENTER,
         });
         setLoading(false);
