@@ -5,7 +5,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 import * as Yup from "yup";
-import { getAddressApi, addAddressApi } from "../../api/address";
+import {
+  getAddressApi,
+  addAddressApi,
+  updateAddressApi,
+} from "../../api/address";
 import useAuth from "../../hooks/useAuth";
 import colors from "../../styles/colors";
 import { formStyle } from "../../styles/index";
@@ -44,8 +48,8 @@ export default function AddAddress(props) {
     onSubmit: async (formData) => {
       setLoading(true);
       try {
-        //if (newAddress) await addAddressApi(auth, formData);
-        await addAddressApi(auth, formData);
+        if (newAddress) await addAddressApi(auth, formData);
+        else await updateAddressApi(auth, formData);
         navigation.goBack();
       } catch (error) {
         console.log(error);
