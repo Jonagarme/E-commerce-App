@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import colors from "../../styles/colors";
 
 export default function AddressList(props) {
-  const { addresses } = props;
+  const { addresses, setReloadAddress } = props;
   //const navigation = useNavigation();
   const { auth } = useAuth();
 
@@ -29,7 +29,7 @@ export default function AddressList(props) {
   const deleteAddress = async (idAddress) => {
     try {
       await deleteAddressApi(auth, idAddress);
-      //setReloadAddress(true);
+      setReloadAddress(true);
     } catch (error) {
       console.log(error);
     }
