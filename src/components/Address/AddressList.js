@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Alert } from "react-native";
 import { Button } from "react-native-paper";
-//import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { map } from "lodash";
 import { deleteAddressApi } from "../../api/address";
 import useAuth from "../../hooks/useAuth";
@@ -9,7 +9,7 @@ import colors from "../../styles/colors";
 
 export default function AddressList(props) {
   const { addresses, setReloadAddress } = props;
-  //const navigation = useNavigation();
+  const navigation = useNavigation();
   const { auth } = useAuth();
 
   const deleteAddressAlert = (address) => {
@@ -35,6 +35,10 @@ export default function AddressList(props) {
     }
   };
 
+  const goToUpdateAddress = (idAddress) => {
+    navigation.navigate("add-address", { idAddress });
+  };
+
   return (
     <View style={styles.container}>
       {map(addresses, (address) => (
@@ -53,7 +57,7 @@ export default function AddressList(props) {
             <Button
               mode="contained"
               color={colors.primary}
-              //onPress={() => goToUpdateAddress(address._id)}
+              onPress={() => goToUpdateAddress(address._id)}
             >
               Editar
             </Button>
