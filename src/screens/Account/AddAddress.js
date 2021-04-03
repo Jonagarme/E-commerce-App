@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 import * as Yup from "yup";
-import { getAddressesApi } from "../../api/address";
+import { getAddressesApi, addAddressApi } from "../../api/address";
 import useAuth from "../../hooks/useAuth";
 import colors from "../../styles/colors";
 import { formStyle } from "../../styles/index";
@@ -20,8 +20,15 @@ export default function AddAddress() {
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: async (formData) => {
-      console.log("Creando direccion");
-      console.log(formData);
+      setLoading(true);
+      try {
+        //if (newAddress) await addAddressApi(auth, formData);
+        await addAddressApi(auth, formData);
+        navigation.goBack();
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
     },
   });
 
@@ -90,6 +97,7 @@ export default function AddAddress() {
           mode="contained"
           style={[formStyle.btnSucces, styles.btnSucces]}
           onPress={formik.handleSubmit}
+          loading={loading}
         >
           Crear direccion
         </Button>
