@@ -8,14 +8,15 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { IconButton } from "react-native-paper";
-import { useFocusEffect } from "@react-navigation/native";
-import { set, size } from "lodash";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { size } from "lodash";
 import { getAddressesApi } from "../../api/address";
 import useAuth from "../../hooks/useAuth";
 
 export default function Addresses() {
   const [addresses, setAddresses] = useState(null);
   const { auth } = useAuth();
+  const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => {
@@ -30,7 +31,7 @@ export default function Addresses() {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Mis Direcciones</Text>
       <TouchableWithoutFeedback
-        onPress={() => console.log("creando nueva direccion")}
+        onPress={() => navigation.navigate("add-address")}
       >
         <View style={styles.addAddres}>
           <Text style={styles.addAddresText}>Añadir una Direccion</Text>
